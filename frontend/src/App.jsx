@@ -8,7 +8,7 @@ function App() {
   // useEffect se ejecuta al montar el componente
   useEffect(() => {
     // Petición al backend en localhost:3000
-    fetch("http://localhost:3000/")
+    fetch("https://proyecto-2026.vercel.app/")
       .then(res => res.text())           // Convertimos la respuesta en texto
       .then(data => setMensaje(data))    // Guardamos el mensaje en el estado
       .catch(err => setMensaje("Error: " + err.message)); // Manejo de errores
