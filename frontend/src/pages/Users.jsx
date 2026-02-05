@@ -7,7 +7,7 @@ export default function Users() {
   console.log("API:", import.meta.env.VITE_API_URL);
 
   useEffect(() => {
-    fetch('http://localhost:3000/users')
+    fetch(import.meta.env.VITE_API_URL + "/users")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Error al conectar con el backend");
