@@ -16,5 +16,8 @@ COPY . .
 # Expone el puerto que usa Express
 EXPOSE 3000
 
+# Expone el puerto que usa FLY.IO
+# EXPOSE 8080
+
 # Comando para iniciar el backend
-CMD ["node", "index.js"]
+CMD ["npm", "start"]

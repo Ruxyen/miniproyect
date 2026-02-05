@@ -1,24 +1,27 @@
-import { useEffect, useState } from "react";
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import Markets from "./pages/Markets";
+import Users from "./pages/Users";
+import About from "./pages/About";
+import "./App.css";
 
 function App() {
-  // Estado para guardar el mensaje que viene del backend
-  const [mensaje, setMensaje] = useState("");
-
-  // useEffect se ejecuta al montar el componente
-  useEffect(() => {
-    // Petición al backend en localhost:3000
-    fetch("https://proyecto-2026-tmaf-a.fly.dev")
-      .then(res => res.text())           // Convertimos la respuesta en texto
-      .then(data => setMensaje(data))    // Guardamos el mensaje en el estado
-      .catch(err => setMensaje("Error: " + err.message)); // Manejo de errores
-  }, []);
-
   return (
-    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>Mensaje desde el backend:</h1>
-      <p>{mensaje}</p>
-    </div>
+    <BrowserRouter>
+      <div className="layout">
+        <Sidebar />
+        <main className="content">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/markets" element={<Markets />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
