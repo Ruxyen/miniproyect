@@ -6,6 +6,7 @@ const navItems = [
   { path: "/markets", label: "Markets" },
   { path: "/users", label: "Users" },
   { path: "/about", label: "About" },
+  { path: "/login", label: "Login" }, // <-- nuevo link
 ];
 
 function Sidebar() {
