@@ -1,30 +1,21 @@
 const express = require("express");
-
 const cors = require("cors");
+const logger = require("./middleware/logger");
+const usersRouter = require("./routes/users");
 
 const app = express();
-
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(logger);
 
-// Ruta de prueba
-app.get("/", (req, res) => {
-  res.send("¡Backend funcionando!");
-});
+// Rutas
+app.get("/", (req, res) => res.send("¡Backend funcionando!"));
+app.use("/users", usersRouter);
 
-
-app.get("/users", (req, res) => {
-  res.json([
-    { id: 1, nombre: "Rubén" },
-    { id: 2, nombre: "Ana" }
-  ]);
-});
-
-// Puerto dinámico (local + nube)
+// Puerto
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Backend escuchando en puerto ${PORT}`);
 });

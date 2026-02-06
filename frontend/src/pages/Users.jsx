@@ -3,20 +3,46 @@ import { useEffect, useState } from "react";
 export default function Users() {
   const [usuarios, setUsuarios] = useState([]);
   const [error, setError] = useState(null);
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
 
-  console.log("API:", import.meta.env.VITE_API_URL);
+  const API_URL = import.meta.env.VITE_API_URL;
 
+  // Obtener usuarios
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL + "/users")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Error al conectar con el backend");
-        }
-        return res.json();
-      })
-      .then((data) => setUsuarios(data))
-      .catch((err) => setError(err.message));
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch(`${API_URL}/users`);
+        if (!res.ok) throw new Error("Error al conectar con el backend");
+        const data = await res.json();
+        setUsuarios(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+    fetchUsers();
   }, []);
+
+  // Agregar usuario
+  const handleAddUser = async () => {
+  if (!nombre || !email) return;
+  console.log("Agregando usuario:", { nombre, email }); // <- Para debug
+  try {
+    const res = await fetch(`${API_URL}/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre, email }) // <- JSON correctamente formateado
+    });
+    if (!res.ok) throw new Error("Error al agregar usuario");
+    const newUser = await res.json();
+    setUsuarios([...usuarios, newUser]);
+    setNombre("");
+    setEmail("");
+  } catch (err) {
+    setError(err.message);
+  }
+};
+
 
   return (
     <div>
@@ -28,9 +54,24 @@ export default function Users() {
 
       <ul>
         {usuarios.map((u) => (
-          <li key={u.id}>{u.nombre}</li>
+          <li key={u.id}>
+            {u.nombre} - {u.email}
+          </li>
         ))}
       </ul>
+
+      <h2>Agregar usuario</h2>
+      <input
+        placeholder="Nombre"
+        value={nombre}
+        onChange={(e) => setNombre(e.target.value)}
+      />
+      <input
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button onClick={handleAddUser}>Agregar</button>
     </div>
   );
 }

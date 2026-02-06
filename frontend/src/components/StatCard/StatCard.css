@@ -1,0 +1,34 @@
+.stat {
+  background: #0b0f1a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7c82a1;
+}
+
+.stat-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.stat-subvalue {
+  font-size: 0.9rem;
+  color: #22c55e;
+  font-weight: 500;
+}
