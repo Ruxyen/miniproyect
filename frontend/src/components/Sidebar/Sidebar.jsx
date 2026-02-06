@@ -2,24 +2,29 @@ import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 const navItems = [
-  { path: "/", label: "Dashboard", end: true },
+  { path: "/dashboard", label: "Dashboard" },
   { path: "/markets", label: "Markets" },
   { path: "/users", label: "Users" },
   { path: "/about", label: "About" },
-  { path: "/login", label: "Login" }, // <-- nuevo link
 ];
 
-function Sidebar() {
+function Sidebar({ user, onLogout }) {
   return (
     <aside className="sidebar" aria-label="Sidebar navigation">
       <h2 className="logo">lighter</h2>
 
+      {/* Mostrar nombre del usuario */}
+      {user && (
+        <div className="sidebar-user">
+          Bienvenido, <strong>{user.nombre}</strong>
+        </div>
+      )}
+
       <nav className="sidebar-nav">
-        {navItems.map(({ path, label, end }) => (
+        {navItems.map(({ path, label }) => (
           <NavLink
             key={path}
             to={path}
-            end={end}
             className={({ isActive }) =>
               `sidebar-link ${isActive ? "active" : ""}`
             }
@@ -28,6 +33,10 @@ function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      <button className="logout-btn" onClick={onLogout}>
+        Logout
+      </button>
     </aside>
   );
 }

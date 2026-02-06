@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Users() {
+export default function Users({ user }) {
   const [usuarios, setUsuarios] = useState([]);
   const [error, setError] = useState(null);
   const [nombre, setNombre] = useState("");
@@ -25,28 +25,33 @@ export default function Users() {
 
   // Agregar usuario
   const handleAddUser = async () => {
-  if (!nombre || !email) return;
-  console.log("Agregando usuario:", { nombre, email }); // <- Para debug
-  try {
-    const res = await fetch(`${API_URL}/users`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, email }) // <- JSON correctamente formateado
-    });
-    if (!res.ok) throw new Error("Error al agregar usuario");
-    const newUser = await res.json();
-    setUsuarios([...usuarios, newUser]);
-    setNombre("");
-    setEmail("");
-  } catch (err) {
-    setError(err.message);
-  }
-};
-
+    if (!nombre || !email) return;
+    try {
+      const res = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, email }),
+      });
+      if (!res.ok) throw new Error("Error al agregar usuario");
+      const newUser = await res.json();
+      setUsuarios([...usuarios, newUser]);
+      setNombre("");
+      setEmail("");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div>
       <h1>Usuarios</h1>
+
+      {/* Mostrar quién está logueado */}
+      {user && (
+        <p>
+          Logueado como: <strong>{user.nombre}</strong> ({user.email})
+        </p>
+      )}
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
