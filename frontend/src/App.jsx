@@ -2,11 +2,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import Markets from "./pages/Markets";
-import Users from "./pages/Users";
+
+
 import About from "./pages/About";
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Portfolio from "./pages/Portfolio";
+import Trade from "./pages/Trade";
+import Users from "./pages/Users";
 
 import "./App.css";
 
@@ -44,21 +47,28 @@ function App() {
 
             {/* Rutas protegidas */}
             <Route
+              path="/about"
+              element={user ? <About user={user} /> : <Navigate to="/" />}
+            />
+            <Route
               path="/dashboard"
               element={user ? <Dashboard user={user} /> : <Navigate to="/" />}
             />
             <Route
-              path="/markets"
-              element={user ? <Markets user={user} /> : <Navigate to="/" />}
+              path="/portfolio"
+              element={user ? <Portfolio user={user} /> : <Navigate to="/" />}
+            />
+            
+            <Route
+              path="/trade"
+              element={user ? <Trade user={user} /> : <Navigate to="/" />}
             />
             <Route
               path="/users"
               element={user ? <Users user={user} /> : <Navigate to="/" />}
             />
-            <Route
-              path="/about"
-              element={user ? <About user={user} /> : <Navigate to="/" />}
-            />
+            
+
           </Routes>
         </main>
       </div>

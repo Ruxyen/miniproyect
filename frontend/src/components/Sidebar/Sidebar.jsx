@@ -2,11 +2,14 @@ import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 const navItems = [
-  { path: "/dashboard", label: "Dashboard" },
-  { path: "/markets", label: "Markets" },
-  { path: "/users", label: "Users" },
   { path: "/about", label: "About" },
+  { path: "/dashboard", label: "Dashboard" },
+  { path: "/login", label: "Login" },
+  { path: "/portfolio", label: "Portfolio" },
+  { path: "/trade", label: "Trade" },
+  { path: "/users", label: "Users" }
 ];
+
 
 function Sidebar({ user, onLogout }) {
   return (
